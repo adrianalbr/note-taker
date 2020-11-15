@@ -4,7 +4,8 @@ const express = require("express");
 const path = require("path");
 const fs = require("fs");
 
-//require array of notes from somewhere...db.json...
+//require array of notes from db.json
+const notesArray = require("./db/db.json");
 
 //Create instance of express
 const app = express();
@@ -46,7 +47,21 @@ app.post("/api/notes", function (req, res){
     let newNoteRequest = req.body;
     console.log("New request: ", newNoteRequest);
 
-    
+    notesArray.push(newNoteRequest);
+    //setting the id
+    newNoteRequest.id = notesArray.indexOf(newNoteRequest);
 
-})
+    fs.writeFileSync("./db/db.json", JSON.stringify(notesArray));
+
+    res.json({
+        isError: false,
+        message: "Your note has been stored",
+        port: PORT,
+        status: 100,
+        success: true
+    });
+});
+
+//Delete routes
+app.delete
 
