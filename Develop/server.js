@@ -57,11 +57,34 @@ app.post("/api/notes", function (req, res){
         isError: false,
         message: "Your note has been stored",
         port: PORT,
-        status: 100,
+        status: 200,
         success: true
     });
 });
 
 //Delete routes
-app.delete
+app.delete("/api/notes/:id", function (req, res){
 
+    //remove note using specific id
+    let id = parseInt(req.params.id);
+    let removeNote = notesArray.filter(item => item.id !=id);
+
+    removeNote.forEach(element => element.id = removeNote.indexOf(element));
+
+    fs.writeFileSync("./db/db.json", JSON.stringify(removeNote));
+
+    res.json({
+        isError: false,
+        message: "Your note has been deleted",
+        port: PORT,
+        status: 200,
+        success: true
+
+    });
+
+});
+
+// Redirect to root 
+app.get("*", function (req, res) {
+    res.redirect('/');
+});
