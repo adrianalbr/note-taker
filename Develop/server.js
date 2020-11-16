@@ -4,8 +4,11 @@ const express = require("express");
 const path = require("path");
 const fs = require("fs");
 
+const { v4: uuidv4 } = require('uuid');
+// ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
+
 //require array of notes from db.json
-const notesArray = require("./db/db.json");
+// const notesArray = require("./db/db.json");
 
 //Create instance of express
 const app = express();
@@ -38,7 +41,7 @@ app.listen(PORT, function() {
 });
 
 app.get("/api/notes", function (req, res){
-    return res.json(JSON.parse(fs.readFileSync(".db/db.json")));
+    return res.json(JSON.parse(fs.readFileSync(path.join(__dirname,"db/db.json"))));
 });
 
 //Post routes
@@ -47,11 +50,13 @@ app.post("/api/notes", function (req, res){
     let newNoteRequest = req.body;
     console.log("New request: ", newNoteRequest);
 
+    const notesArray = JSON.parse(fs.readFileSync(path.join(__dirname,"db/db.json")));
+    
     notesArray.push(newNoteRequest);
     //setting the id
-    newNoteRequest.id = notesArray.indexOf(newNoteRequest);
+    newNoteRequest.id = uuidv4();
 
-    fs.writeFileSync("./db/db.json", JSON.stringify(notesArray));
+    fs.writeFileSync(path.join(__dirname,"db/db.json"), JSON.stringify(notesArray));
 
     res.json({
         isError: false,
@@ -64,7 +69,7 @@ app.post("/api/notes", function (req, res){
 
 //Delete routes
 app.delete("/api/notes/:id", function (req, res){
-
+    const notesArray = JSON.parse(fs.readFileSync(path.join(__dirname,"db/db.json")));
     //remove note using specific id
     let id = parseInt(req.params.id);
     let removeNote = notesArray.filter(item => item.id !=id);

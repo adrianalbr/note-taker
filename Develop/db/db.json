@@ -1,17 +1,1 @@
-[{"title":"Test Title","text":"Test text"}];
-
-{"notes":
-
-[
-    {
-        "title": "Sample note 1",
-        "text": "This is a sample note to test if this application works",
-        "id": 001
-    },
-    {
-        "title": "Sample note 2",
-        "text": "This is a second sample note to test if this application works",
-        "id": 002
-    }
-]
-}
+[{"title":"New note with better id","text":"Id testing","id":0}]
