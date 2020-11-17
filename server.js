@@ -5,10 +5,6 @@ const path = require("path");
 const fs = require("fs");
 
 const { v4: uuidv4 } = require('uuid');
-// ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
-
-//require array of notes from db.json
-// const notesArray = require("./db/db.json");
 
 //Create instance of express
 const app = express();
