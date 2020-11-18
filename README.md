@@ -7,6 +7,7 @@ The objective of this application is to create a tool that can be used to write,
 ## Installation
 
 The application can be accessed here - https://frozen-gorge-54339.herokuapp.com
+The Github repo is here - https://github.com/adrianalbr/note-taker
 
 ## How it works
 
